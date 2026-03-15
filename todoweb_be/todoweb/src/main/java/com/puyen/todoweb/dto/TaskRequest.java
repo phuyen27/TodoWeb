@@ -19,4 +19,5 @@ public class TaskRequest {
     private Date dueDate;
 
     private String priority;
+    private Boolean completed;
 }

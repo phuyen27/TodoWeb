@@ -3,6 +3,11 @@ package com.puyen.todoweb.service;
 import com.puyen.todoweb.model.Task;
 import com.puyen.todoweb.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -10,10 +15,20 @@ import java.util.List;
 
 @Service
 public class TaskService {
+
     @Autowired
     private TaskRepository taskRepository;
 
-    public Task createTask(String userId, String title, String description, Date deadline,String priority) {
+    private String getCurrentUserId() {
+        return SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+    }
+
+    public Task createTask(String title, String description, Date deadline, String priority) {
+
+        String userId = getCurrentUserId();
 
         Task task = new Task();
         task.setUserId(userId);
@@ -27,37 +42,73 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public List<Task> getTasks(String userId) {
-        return taskRepository.findAllByUserId(userId);
+    public Page<Task> getTasks(
+            int page,
+            int size,
+            Boolean completed,
+            String priority,
+            String search,
+            String sortBy,
+            String direction) {
+
+        String userId = getCurrentUserId();
+
+        Sort sort = direction.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        if (search != null && !search.isEmpty()) {
+            return taskRepository.findByUserIdAndTitleContainingIgnoreCase(userId, search, pageable);
+        }
+
+        if (completed != null && priority != null) {
+            return taskRepository.findByUserIdAndCompletedAndPriority(userId, completed, priority, pageable);
+        }
+
+        if (completed != null) {
+            return taskRepository.findByUserIdAndCompleted(userId, completed, pageable);
+        }
+
+        if (priority != null) {
+            return taskRepository.findByUserIdAndPriority(userId, priority, pageable);
+        }
+
+        return taskRepository.findByUserId(userId, pageable);
     }
 
-    public Task completeTask(String id) {
-        Task task = taskRepository.findById(id).orElseThrow();
 
-        task.setCompleted(true);
 
-        return taskRepository.save(task);
-    }
+    public Task updateTask(
+            String id,
+            String title,
+            String description,
+            Date dueDate,
+            String priority,
+            Boolean completed) {
 
-    public Task updateTask(String id, String title, String description, Date dueDate, String priority) {
+        String userId = getCurrentUserId();
 
-        Task task = taskRepository.findById(id).orElseThrow();
+        Task task = taskRepository.findByIdAndUserId(id, userId)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
 
-        task.setTitle(title);
-        task.setDescription(description);
-        task.setDueDate(dueDate);
-        task.setPriority(priority);
+        if (title != null) task.setTitle(title);
+        if (description != null) task.setDescription(description);
+        if (dueDate != null) task.setDueDate(dueDate);
+        if (priority != null) task.setPriority(priority);
+        if (completed != null) task.setCompleted(completed);
 
-        return taskRepository.save(task);
-    }
-
-    public Task toggleComplete(String id) {
-        Task task = taskRepository.findById(id).orElseThrow();
-        task.setCompleted(!task.isCompleted());
         return taskRepository.save(task);
     }
 
     public void deleteTask(String id) {
-        taskRepository.deleteById(id);
+
+        String userId = getCurrentUserId();
+
+        Task task = taskRepository.findByIdAndUserId(id, userId)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+
+        taskRepository.delete(task);
     }
 }

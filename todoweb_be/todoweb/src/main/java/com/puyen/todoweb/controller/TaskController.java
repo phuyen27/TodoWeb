@@ -4,14 +4,13 @@ import com.puyen.todoweb.dto.TaskRequest;
 import com.puyen.todoweb.model.Task;
 import com.puyen.todoweb.service.TaskService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
@@ -20,46 +19,41 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping
-    public Task createTask(
-            @Valid @RequestBody TaskRequest taskRequest,
-            HttpServletRequest request) {
-
-        String email = (String) request.getAttribute("email");
-
+    public Task createTask(@RequestBody TaskRequest request) {
         return taskService.createTask(
-                email,
-                taskRequest.getTitle(),
-                taskRequest.getDescription(),
-                taskRequest.getDueDate(),
-                taskRequest.getPriority()
+                request.getTitle(),
+                request.getDescription(),
+                request.getDueDate(),
+                request.getPriority()
         );
     }
 
     @GetMapping
-    public List<Task> getTasks(HttpServletRequest request) {
+    public Page<Task> getTasks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) Boolean completed,
+            @RequestParam(required = false) String priority,
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction) {
 
-        String email = (String) request.getAttribute("email");
-
-        return taskService.getTasks(email);
+        return taskService.getTasks(page, size, completed, priority, search, sortBy, direction);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public Task updateTask(
             @PathVariable String id,
-            @Valid @RequestBody TaskRequest taskRequest) {
+            @RequestBody TaskRequest request) {
 
         return taskService.updateTask(
                 id,
-                taskRequest.getTitle(),
-                taskRequest.getDescription(),
-                taskRequest.getDueDate(),
-                taskRequest.getPriority()
+                request.getTitle(),
+                request.getDescription(),
+                request.getDueDate(),
+                request.getPriority(),
+                request.getCompleted()
         );
-    }
-
-    @PutMapping("/{id}/complete")
-    public Task completeTask(@PathVariable String id) {
-        return taskService.completeTask(id);
     }
 
     @DeleteMapping("/{id}")

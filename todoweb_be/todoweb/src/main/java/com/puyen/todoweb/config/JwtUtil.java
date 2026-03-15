@@ -20,7 +20,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String extractEmail(String token) {
+    public String extractUserId(String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token)
