@@ -19,6 +19,9 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private PetService petService;
+
     private String getCurrentUserId() {
         return SecurityContextHolder
                 .getContext()
@@ -92,12 +95,19 @@ public class TaskService {
 
         Task task = taskRepository.findByIdAndUserId(id, userId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
-
+        Boolean oldCompleted = task.getCompleted();
         if (title != null) task.setTitle(title);
         if (description != null) task.setDescription(description);
         if (dueDate != null) task.setDueDate(dueDate);
         if (priority != null) task.setPriority(priority);
-        if (completed != null) task.setCompleted(completed);
+        if (completed != null) {
+            task.setCompleted(completed);
+
+            // task vừa được hoàn thành
+            if (oldCompleted == false && completed == true) {
+                petService.growFromTask(userId);
+            }
+        }
 
         return taskRepository.save(task);
     }

@@ -18,7 +18,7 @@ public interface TaskRepository extends CrudRepository<Task, String> {
     Page<Task> findByUserIdAndCompleted(String userId, Boolean completed, Pageable pageable);
 
     Page<Task> findByUserIdAndPriority(String userId, String priority, Pageable pageable);
-
+    long countByUserIdAndCompletedFalse(String userId);
     Page<Task> findByUserIdAndCompletedAndPriority(
             String userId,
             Boolean completed,
