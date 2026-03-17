@@ -22,13 +22,21 @@ export default function LoginPage() {
 
     try {
 
-      await login(email, password);
+     await login(email, password);
+
+      const res = await api.get("/pet/me");
 
       toast.success("Login successful", { id: toastId });
 
       setTimeout(() => {
-        navigate("/");
-      }, 1000);
+
+        if (!res.data) {
+          navigate("/pet");
+        } else {
+          navigate("/");
+        }
+
+      }, 800);
 
     } catch (err) {
 

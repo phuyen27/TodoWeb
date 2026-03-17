@@ -1,0 +1,187 @@
+.layout{
+display:flex;
+min-height:100vh;
+background:#fff1f7;
+}
+
+.tasks-page{
+flex:1;
+padding:40px;
+}
+
+.title{
+color:#d63375;
+margin-bottom:20px;
+}
+
+/* CREATE */
+
+.create{
+display:flex;
+gap:10px;
+margin-bottom:25px;
+}
+
+.create input,
+.create select{
+
+padding:10px;
+border-radius:8px;
+border:1px solid #ffcfe3;
+
+}
+
+.create button{
+
+background:#ff6fa7;
+color:white;
+border:none;
+padding:10px 16px;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+/* TOOLBAR */
+
+.toolbar{
+display:flex;
+justify-content:space-between;
+margin-bottom:20px;
+}
+
+.toolbar input{
+
+padding:8px;
+border-radius:8px;
+border:1px solid #ffcfe3;
+
+}
+
+.filters button{
+
+margin-left:6px;
+padding:6px 12px;
+border:none;
+border-radius:6px;
+background:#ffe4ef;
+cursor:pointer;
+
+}
+
+.filters .active{
+
+background:#ff6fa7;
+color:white;
+
+}
+
+/* TASK */
+
+.list{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.task{
+
+display:flex;
+justify-content:space-between;
+padding:16px;
+background:white;
+border-radius:12px;
+box-shadow:0 3px 10px rgba(0,0,0,0.05);
+
+}
+
+.task.done{
+opacity:0.6;
+}
+
+.left{
+display:flex;
+gap:14px;
+}
+
+.meta{
+margin-top:6px;
+display:flex;
+gap:10px;
+}
+
+/* PRIORITY */
+
+.priority{
+
+padding:2px 8px;
+border-radius:6px;
+font-size:12px;
+
+}
+
+.priority.low{
+background:#d8f3dc;
+}
+
+.priority.medium{
+background:#ffe4ef;
+}
+
+.priority.high{
+background:#ffd6d6;
+}
+
+/* ACTION */
+
+.actions button{
+
+border:none;
+margin-left:6px;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+
+}
+
+.edit{
+background:#e0f2fe;
+}
+
+.delete{
+background:#ffd1e4;
+}
+
+/* MODAL */
+
+.modal{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.3);
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.modal-content{
+
+background:white;
+padding:30px;
+border-radius:12px;
+display:flex;
+flex-direction:column;
+gap:10px;
+width:300px;
+
+}
+
+.modal-actions{
+display:flex;
+gap:10px;
+margin-top:10px;
+}

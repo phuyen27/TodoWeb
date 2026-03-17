@@ -103,7 +103,6 @@ public class TaskService {
         if (completed != null) {
             task.setCompleted(completed);
 
-            // task vừa được hoàn thành
             if (oldCompleted == false && completed == true) {
                 petService.growFromTask(userId);
             }

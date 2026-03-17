@@ -6,6 +6,8 @@ import { LandingPage } from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
+import Tasks from "./pages/Tasks";
+import PetPage from "./pages/PetPage";
 
 function App() {
 
@@ -29,6 +31,9 @@ function App() {
 
         <Route path="/dashboard" element={<Dashboard />} />
 
+        <Route path="/tasks" element={<Tasks />} />
+
+        <Route path="/pet" element={<PetPage />} />
       </Routes>
 
     </BrowserRouter>

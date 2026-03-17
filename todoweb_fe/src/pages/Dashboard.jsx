@@ -1,5 +1,5 @@
 import { useAuth } from "../context/AuthContext";
-
+import { Sidebar } from "../components/Sidebar/Sidebar";
 export default function Dashboard(){
 
   const { logout } = useAuth();
@@ -8,10 +8,11 @@ export default function Dashboard(){
 
     <div className="dashboard">
 
-      <header className="header">
-        <h2>My Todo Dashboard</h2>
-        <div>🔥 Streak: 5 days</div>
-      </header>
+      <Sidebar onLogout={logout} />
+
+      <div className="dashboard-content">
+       
+      </div>
 
     </div>
 

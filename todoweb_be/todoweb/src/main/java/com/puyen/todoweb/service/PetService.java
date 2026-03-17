@@ -96,7 +96,13 @@ public class PetService {
 
     public void growFromTask(String userId){
 
-        Pet pet = petRepository.findByUserId(userId).orElseThrow();
+        Pet pet = petRepository
+                .findByUserId(userId)
+                .orElse(null);
+
+        if (pet == null) {
+            return;
+        }
 
         pet.setAgeDays(pet.getAgeDays() + 1);
 
