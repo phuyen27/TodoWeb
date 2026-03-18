@@ -1,12 +1,4 @@
 
-/* ========================= */
-/* BASE */
-/* ========================= */
-
-body {
-color: var(--text-main);
-font-family: 'Pixelify Sans', monospace;
-}
 
 /* ========================= */
 /* LAYOUT */
@@ -199,7 +191,11 @@ color: #1e293b;
 .task p {
 margin: 4px 0 6px;
 font-size: 13px;
-color: var(--text-dim);
+color: var(--text-light);
+}
+
+.task h3 {
+    color:var(--text-light-orange);
 }
 
 /* meta */
@@ -411,7 +407,7 @@ transform: translateY(0) scale(1);
 .modal-content h2 {
 margin: 0;
 text-align: center;
-color: var(--primary);
+color: var(--text-light-orange);
 }
 
 .modal-content input,

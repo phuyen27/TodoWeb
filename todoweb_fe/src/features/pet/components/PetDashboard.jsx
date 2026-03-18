@@ -2,10 +2,11 @@ import { Sidebar } from "../../../components/Sidebar/Sidebar";
 import PetChat from "./PetChat";
 import room from "../../../assets/images/room-pet.png";
 import { useEffect, useState } from "react";
+import {useAuth} from "../../../hooks/useAuth";
 export default function PetDashboard({ pet, messages, onSend }) {
 
   const [timeClass, setTimeClass] = useState("");
-  
+  const { logout } = useAuth();
     useEffect(() => {
       const updateTime = () => {
       const hour = new Date().getHours();
@@ -49,12 +50,13 @@ export default function PetDashboard({ pet, messages, onSend }) {
       return () => clearInterval(interval);
     }, []);
 
+    const [lightOn, setLightOn] = useState(false);
     
 
   return (
     <div className={`pet-dashboard-page ${timeClass}`}>
       <div className="pet-layout">
-        <Sidebar />
+        <Sidebar onLogout={logout} />
 
         <div className="pet-dashboard">
           <div className="pet-container flex-wrap">
@@ -67,11 +69,21 @@ export default function PetDashboard({ pet, messages, onSend }) {
                drop-shadow-[2px_2px_0_rgba(0,0,0,0.7)]">
                 {pet.name}
               </h2>
-                <div
-                  className="pet-img-wrapper"
+
+              {timeClass === "night" && (
+                  <button
+                    className="light-toggle"
+                    onClick={() => setLightOn(!lightOn)}
+                  >
+                    {lightOn ? "💡 ON" : "🌑 OFF"}
+                  </button>
+                )}
+                              <div
+                  className={`pet-img-wrapper ${lightOn ? "light-on" : ""}`}
                   style={{
                     "--sun-x": `${sunPosition.x}%`,
-                    "--sun-y": `${sunPosition.y}%`,backgroundImage: `url(${room})`
+                    "--sun-y": `${sunPosition.y}%`,
+                    backgroundImage: `url(${room})`
                   }}
                 >
 

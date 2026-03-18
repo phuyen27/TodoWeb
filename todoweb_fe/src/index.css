@@ -1,5 +1,8 @@
 @import "tailwindcss";
-
+html, body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
 :root {
   --sidebar-width: 240px;
    --bg-main: #0f172a;        
@@ -12,6 +15,9 @@
 
   --text-main: #e2e8f0;
   --text-dim: #94a3b8;
+
+ --text-light:#c6f754;
+--text-light-orange: #fcd34d;
 
 --orange: #f59e0b;
 --orange-dark: #d97706;

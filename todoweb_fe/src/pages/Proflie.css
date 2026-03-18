@@ -1,0 +1,135 @@
+/* ===== GLOBAL ===== */
+.profile {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-main);
+  margin-left: 240px;
+}
+
+@media (max-width: 768px) {
+.profile {
+margin-left: 0;
+}
+}
+
+
+.profile-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== CARD ===== */
+.profile-card {
+  background: var(--bg-card);
+  padding: 28px;
+  width: 380px;
+
+  border: 2px solid var(--border-pixel);
+
+  /* shadow bớt gắt hơn */
+  box-shadow:
+    3px 3px 0px #000,
+    6px 6px 0px var(--border-pixel);
+
+  border-radius: 6px; /* thêm nhẹ cho modern */
+}
+
+/* ===== TITLE ===== */
+.profile-title {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: var(--primary);
+
+ 
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  text-shadow: 1px 1px 0px #000;
+}
+
+/* ===== INPUT ===== */
+.profile-card input {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 12px;
+
+  background: var(--bg-panel);
+  color: var(--text-main);
+
+  border: 2px solid var(--border-pixel);
+  outline: none;
+
+  box-shadow: inset 1px 1px 0px #000;
+
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.profile-card input::placeholder {
+  color: var(--text-dim);
+}
+
+.profile-card input:focus {
+  border-color: var(--primary);
+  box-shadow:
+    inset 1px 1px 0px #000,
+    0 0 0 2px rgba(0, 229, 255, 0.4);
+}
+
+/* ===== BUTTON ===== */
+.profile-card button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+
+  background: var(--orange);
+  color: #000;
+
+  border: 2px solid #000;
+
+  cursor: pointer;
+
+  box-shadow: 2px 2px 0px #000;
+
+  transition: all 0.12s ease;
+
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.profile-card button:hover {
+  background: var(--orange-soft);
+  transform: translateY(-1px);
+}
+
+.profile-card button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* ===== INFO TEXT ===== */
+.profile-info {
+  font-size: 12px;
+  color: var(--highlight);
+  margin-top: 12px;
+
+  opacity: 0.9;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-panel);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}

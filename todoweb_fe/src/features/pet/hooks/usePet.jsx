@@ -1,53 +1,73 @@
 import { useEffect, useState } from "react";
-import {getPet, createPet, chatWithPet} from "../services/petService";
-export default function usePet(){
+import toast from "react-hot-toast";
+import { getPet, createPet, chatWithPet } from "../services/petService";
 
-    const [pet,setPet] = useState(null);
-    const [loading,setLoading] = useState(true);
-    const [messages, setMessages] = useState([]);
+export default function usePet() {
+  const [pet, setPet] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [messages, setMessages] = useState([]);
 
-   const loadPet = async () => {
+  const loadPet = async () => {
     try {
-        const data = await getPet();
-        console.log("API pet:", data);
-        setPet(data);
+      const data = await getPet();
+      setPet(data);
     } catch (err) {
-        console.error(err);
+      console.error(err);
+      toast.error("Failed to load pet 🐾");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
-    const handleCreatePet = async (payload)=>{
-        await createPet(payload);
-        await loadPet();
-    };
+  };
 
-    const sendMessage = async (text) =>{
-        if(!text.trim()) return;
+  const handleCreatePet = async (payload) => {
+    const toastId = toast.loading("Creating your pet... 🐣");
 
-        const userMsg = {role: "user", text};
-        setMessages((prev)=>([...prev, userMsg]));
+    try {
+      await createPet(payload);
+      await loadPet();
 
-        try{
-            const reply = await chatWithPet(text);
-            const petMsg = {role: "pet", text: reply};
-            setMessages((prev)=>([...prev, petMsg]));
-        }catch(err){
-            console.error("Chat error:", err);
-        }
+      toast.success("Pet created! 🎉", { id: toastId });
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to create pet", { id: toastId });
     }
+  };
 
-   useEffect(() => {
+  const sendMessage = async (text) => {
+    if (!text.trim()) return;
+
+    const userMsg = { role: "user", text };
+    setMessages((prev) => [...prev, userMsg]);
+
+    try {
+      const reply = await chatWithPet(text);
+
+      const petMsg = { role: "pet", text: reply };
+      setMessages((prev) => [...prev, petMsg]);
+
+    } catch (err) {
+      console.error("Chat error:", err);
+
+      toast.error("Pet is sleeping... 😴");
+
+      // optional: show fallback message
+      setMessages((prev) => [
+        ...prev,
+        { role: "pet", text: "..." }
+      ]);
+    }
+  };
+
+  useEffect(() => {
     loadPet();
-}, []);
+  }, []);
 
-    return {
-        pet,
-        loading,
-        createPet: handleCreatePet,
-        messages,
-        sendMessage,
-        refreshPet: loadPet,
-        handleCreatePet
-    };  
+  return {
+    pet,
+    loading,
+    createPet: handleCreatePet,
+    messages,
+    sendMessage,
+    refreshPet: loadPet
+  };
 }

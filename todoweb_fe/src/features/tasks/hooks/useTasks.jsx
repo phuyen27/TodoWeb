@@ -1,6 +1,8 @@
 // features/tasks/hooks/useTasks.js
 
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
 import {
   getTasks,
   createTaskApi,
@@ -20,27 +22,59 @@ export default function useTasks() {
     loadTasks();
   }, []);
 
-  const createTask = async (data) => {
-    await createTaskApi(data);
-    loadTasks();
-  };
+ const createTask = async (data) => {
+  const toastId = toast.loading("Creating task...");
 
-  const toggleTask = async (task) => {
+  try {
+    await createTaskApi(data);
+    await loadTasks();
+    toast.success("Task created!", { id: toastId });
+  } catch (err) {
+    toast.error("Failed to create task", { id: toastId });
+  }
+};
+
+const toggleTask = async (task) => {
+  const toastId = toast.loading("Updating task...");
+
+  try {
     await updateTaskApi(task.id, {
       completed: !task.completed
     });
-    loadTasks();
-  };
+    await loadTasks();
 
-  const updateTask = async (task) => {
+    toast.success(
+      task.completed ? "Marked as incomplete" : "Task completed!",
+      { id: toastId }
+    );
+  } catch (err) {
+    toast.error("Failed to update task", { id: toastId });
+  }
+};
+
+const updateTask = async (task) => {
+  const toastId = toast.loading("Saving changes...");
+
+  try {
     await updateTaskApi(task.id, task);
-    loadTasks();
-  };
+    await loadTasks();
+    toast.success("Task updated!", { id: toastId });
+  } catch (err) {
+    toast.error("Failed to update task", { id: toastId });
+  }
+};
 
-  const deleteTask = async (id) => {
+const deleteTask = async (id) => {
+  const toastId = toast.loading("Deleting task...");
+
+  try {
     await deleteTaskApi(id);
-    loadTasks();
-  };
+    await loadTasks();
+    toast.success("Task deleted!", { id: toastId });
+  } catch (err) {
+    toast.error("Failed to delete task", { id: toastId });
+  }
+};
 
   return {
     tasks,

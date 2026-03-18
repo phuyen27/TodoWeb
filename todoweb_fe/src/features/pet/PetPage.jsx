@@ -3,9 +3,10 @@ import PetDashboard from "./components/PetDashboard";
 import usePet from "./hooks/usePet";
 import "./PetPage.css";
 
+
 export default function PetPage() {
   const { pet, loading, createPet, sendMessage, messages } = usePet();
-
+ 
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -17,6 +18,7 @@ export default function PetPage() {
           pet={pet}
           messages={messages}
           onSend={sendMessage}
+         
         />
       ) : (
         <CreatePet onCreated={createPet} />

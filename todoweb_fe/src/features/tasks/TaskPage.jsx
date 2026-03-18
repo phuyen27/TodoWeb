@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 
 import useTasks from "./hooks/useTasks";
+import {useAuth} from "../../hooks/useAuth";
 
 import TaskForm from "./components/TaskForm";
 import TaskToolbar from "./components/TaskToolbar";
@@ -15,7 +16,7 @@ import GetPet from '../pet/components/GetPet';
 
 export default function TasksPage() {
   const { tasks, createTask, toggleTask, updateTask, deleteTask } = useTasks();
-
+  const { logout } = useAuth();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -40,7 +41,7 @@ export default function TasksPage() {
 
   return (
     <div className="layout">
-      <Sidebar />
+      <Sidebar onLogout={logout} />
 
       <div className="tasks-page">
         <GetPet />
