@@ -52,8 +52,7 @@ public class Task {
     public boolean getCompleted() {
         return completed;
     }
-    public void setCompleted(Boolean completed) {}
-    public void setCompleted(boolean completed) {
+    public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
 

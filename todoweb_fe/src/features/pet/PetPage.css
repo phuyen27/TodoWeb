@@ -1,0 +1,369 @@
+/* ========================= */
+/* PAGE */
+/* ========================= */
+
+.pet-dashboard-page {
+height: 100vh;
+font-family: 'Pixelify Sans', monospace;
+margin-left: 240px;
+background: var(--bg-main);
+color: var(--text-main);
+}
+
+@media (max-width: 768px) {
+.pet-dashboard-page {
+margin-left: 0;
+}
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 768px) {
+.pet-container {
+flex-direction: column;
+}
+
+.pet-left,
+.pet-right {
+height: 50%;
+}
+
+.pet-image {
+width: 140px;
+}
+}
+
+/* ========================= */
+/* LAYOUT */
+/* ========================= */
+
+.pet-layout {
+display: flex;
+height: 100%;
+}
+
+.pet-dashboard {
+flex: 1;
+height: 100%;
+padding: 20px;
+}
+
+.pet-container {
+display: flex;
+height: 100%;
+gap: 20px;
+}
+
+.pet-left,
+.pet-right {
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+
+.pet-left {
+justify-content: center;
+align-items: center;
+}
+
+.pet-right {
+justify-content: flex-end;
+}
+
+/* ========================= */
+/* PET CARD */
+/* ========================= */
+
+.pet-card {
+flex:1;
+display: flex;
+flex-direction: column;
+width: 100%;
+max-width: 400px;
+padding: 20px;
+text-align: center;
+
+background: var(--bg-card);
+border: 2px solid var(--border-pixel);
+border-radius: 0;
+
+box-shadow:
+4px 4px 0 #000,
+inset 0 0 0 2px #000;
+}
+
+.pet-name {
+color: var(--primary);
+margin-bottom: 10px;
+text-shadow: 2px 2px 0 #000;
+}
+
+/* ========================= */
+/* PET IMAGE */
+/* ========================= */
+
+.pet-image {
+max-width: 250px;
+z-index: 4;
+image-rendering: pixelated;
+transition: 0.4s;
+
+filter:
+contrast(1.2)
+brightness(1.05)
+drop-shadow(0 0 6px rgba(56, 189, 248, 0.6));
+
+animation: petFloat 3s ease-in-out infinite;
+}
+
+.pet-img-wrapper {
+position: relative;
+width: 100%;
+flex:1;
+overflow: hidden;
+
+display: flex;
+justify-content: center;
+align-items: flex-end;
+
+border: 2px solid var(--border-pixel);
+
+background-size: cover;
+background-position: center;
+}
+
+/* hover */
+.pet-img-wrapper:hover .pet-image {
+transform: scale(1.05);
+}
+
+/* shadow pixel */
+.pet-img-wrapper::before {
+content: "";
+position: absolute;
+width: 100px;
+height: 20px;
+bottom: 10px;
+left: 50%;
+transform: translateX(-50%);
+background: #000;
+opacity: 0.4;
+z-index: 2;
+}
+
+/* ========================= */
+/* LIGHT */
+/* ========================= */
+
+.window-light {
+position: absolute;
+inset: 0;
+z-index: 1;
+pointer-events: none;
+
+background: radial-gradient(
+circle at var(--sun-x) var(--sun-y),
+rgba(56, 189, 248, 0.3),
+transparent 60%
+);
+}
+
+.pet-dashboard-page.night .window-light {
+background: radial-gradient(
+circle at var(--sun-x) var(--sun-y),
+rgba(167, 139, 250, 0.25),
+transparent 70%
+);
+}
+
+.ground-light {
+position: absolute;
+bottom: 0;
+left: 50%;
+width: 200px;
+height: 60px;
+transform: translateX(-50%);
+z-index: 1;
+
+background: radial-gradient(
+ellipse at center,
+rgba(56, 189, 248, 0.2),
+transparent 70%
+);
+}
+
+/* ========================= */
+/* PARTICLES */
+/* ========================= */
+
+.particles {
+position: absolute;
+inset: 0;
+z-index: 2;
+pointer-events: none;
+}
+
+.particles span {
+position: absolute;
+width: 3px;
+height: 3px;
+background: #38bdf8;
+box-shadow: 0 0 4px #38bdf8;
+opacity: 0;
+animation: float 6s linear infinite;
+}
+
+.particles span:nth-child(odd) { left: 20%; animation-delay: 1s; }
+.particles span:nth-child(even) { left: 70%; animation-delay: 3s; }
+.particles span:nth-child(3n) { left: 40%; animation-delay: 2s; }
+
+/* ========================= */
+/* CHAT */
+/* ========================= */
+
+.chat-card {
+flex: 1;
+display: flex;
+flex-direction: column;
+overflow: hidden;
+
+background: var(--bg-panel);
+border: 2px solid var(--border-pixel);
+border-radius: 0;
+
+box-shadow: 4px 4px 0 #000;
+}
+
+.pet-chat {
+display: flex;
+flex-direction: column;
+height: 100%;
+}
+
+.chat-box {
+flex: 1;
+overflow-y: auto;
+padding: 15px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.chat-message {
+max-width: 70%;
+padding: 10px;
+font-size: 13px;
+word-wrap: break-word;
+
+border: 2px solid #334155;
+border-radius: 0;
+}
+
+.chat-message.pet {
+align-self: flex-start;
+background: #1e293b;
+color: var(--text-main);
+}
+
+.chat-message.user {
+align-self: flex-end;
+background: var(--primary);
+color: #020617;
+border-color: #0ea5e9;
+}
+
+/* ========================= */
+/* INPUT */
+/* ========================= */
+
+.chat-input {
+display: flex;
+padding: 10px;
+gap: 10px;
+
+background: #020617;
+border-top: 2px solid var(--border-pixel);
+}
+
+.chat-input input {
+flex: 1;
+padding: 10px;
+
+background: #0f172a;
+color: var(--text-main);
+
+border: 2px solid #334155;
+border-radius: 0;
+outline: none;
+}
+
+.chat-input button {
+padding: 0 16px;
+cursor: pointer;
+
+background: var(--accent);
+color: #020617;
+
+border: 2px solid #7c3aed;
+border-radius: 0;
+
+box-shadow: 2px 2px 0 #000;
+}
+
+.chat-input button:hover {
+transform: translate(-1px, -1px);
+box-shadow: 3px 3px 0 #000;
+}
+
+/* ========================= */
+/* TIME EFFECT */
+/* ========================= */
+
+.pet-img-wrapper::after {
+content: "";
+position: absolute;
+inset: 0;
+z-index: 3;
+pointer-events: none;
+}
+
+/* morning */
+.pet-dashboard-page.morning .pet-img-wrapper {
+filter: brightness(1.05);
+}
+
+/* day */
+.pet-dashboard-page.day .pet-img-wrapper {
+filter: brightness(1.15);
+}
+
+/* sunset */
+.pet-dashboard-page.sunset .pet-img-wrapper {
+filter: brightness(0.9) saturate(1.2);
+}
+
+/* night */
+.pet-dashboard-page.night .pet-img-wrapper {
+filter: brightness(0.5) contrast(1.2);
+}
+
+.pet-dashboard-page.night .particles span {
+opacity: 0.3;
+}
+
+/* ========================= */
+/* ANIMATION */
+/* ========================= */
+
+@keyframes petFloat {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+
+@keyframes float {
+0% { transform: translateY(20px); opacity: 0; }
+30% { opacity: 1; }
+100% { transform: translateY(-120px); opacity: 0; }
+}

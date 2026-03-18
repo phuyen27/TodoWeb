@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
+:root {
+  --sidebar-width: 240px;
+   --bg-main: #0f172a;        
+  --bg-card: #1e293b;        
+  --bg-panel: #020617;      
+
+  --primary: #38bdf8;        
+  --accent: #a78bfa;         
+  --highlight: #22c55e;     
+
+  --text-main: #e2e8f0;
+  --text-dim: #94a3b8;
+
+--orange: #f59e0b;
+--orange-dark: #d97706;
+--orange-soft: #fcd34d;
+
+  
+  --border-pixel: #334155;
+}
+
+
 
 @theme {
   --color-primary-50: #fff1f7;

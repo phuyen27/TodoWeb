@@ -1,0 +1,77 @@
+/* ========================= */
+/* WRAPPER */
+/* ========================= */
+
+.getpet-wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+  height: 120px;
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .getpet-wrapper {
+    left: 0;
+    width: 100%;
+  }
+}
+
+/* ========================= */
+/* CHARACTER */
+/* ========================= */
+
+.getpet-character {
+  position: absolute;
+  bottom: 0;
+
+  animation: getpet-run-across 12s linear infinite;
+}
+
+/* IMAGE */
+.getpet-image {
+  width: 80px;
+  image-rendering: pixelated;
+}
+
+/* ========================= */
+/* RUN ANIMATION */
+/* ========================= */
+
+@keyframes getpet-run-across {
+  0% {
+    left: 0;
+    transform: scaleX(1);
+  }
+
+  50% {
+    left: calc(100% - 80px);
+    transform: scaleX(-1);
+  }
+
+  100% {
+    left: 0;
+    transform: scaleX(-1);
+  }
+}
+
+/* ========================= */
+/* CELEBRATE */
+/* ========================= */
+
+.getpet-character.is-celebrating {
+  animation: getpet-run-across 12s linear infinite,
+             getpet-jump 0.5s ease 3;
+}
+
+@keyframes getpet-jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}

@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Pet from "../components/ui/PetAnimation";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
+import "./auth.css"; // dùng chung với LoginPage
 
 export default function RegisterPage() {
 
@@ -16,43 +17,22 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-
-      await api.post("/auth/register", {
-        username,
-        email,
-        password
-      });
-
+      await api.post("/auth/register", { username, email, password });
       toast.success("Register successful!");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1200);
-
+      setTimeout(() => navigate("/login"), 1200);
     } catch (err) {
-
-      toast.error(
-        err.response?.data?.message || "Register failed!"
-      );
-
+      toast.error(err.response?.data?.message || "Register failed!");
     }
   };
 
   return (
-    <div className="flex items-center flex-wrap justify-center h-screen bg-gray-100">
-
+    <div className="auth-page">
       <Pet />
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white m-6 p-6 rounded-xl shadow w-80"
-      >
+      <form onSubmit={handleSubmit} className="auth-card">
 
-        <h1 className="text-2xl font-bold mb-4">
-          Register
-        </h1>
+        <h1 className="auth-title">REGISTER</h1>
 
         <Input
           type="text"
@@ -75,16 +55,12 @@ export default function RegisterPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <p className="p-2">
+        <p className="auth-text">
           Already have an account?{" "}
-          <a href="/login" className="text-primary-500 hover:underline">
-            Login
-          </a>
+          <a href="/login" className="auth-link">Login</a>
         </p>
 
-        <Button type="submit">
-          Register
-        </Button>
+        <Button type="submit">Start Game</Button>
 
       </form>
     </div>

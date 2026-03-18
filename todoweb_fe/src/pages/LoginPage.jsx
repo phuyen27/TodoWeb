@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import api from "../api/api";
 import toast from "react-hot-toast";
 import Pet from "../components/ui/PetAnimation";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
+import "./auth.css"; 
 
 export default function LoginPage() {
 
@@ -15,52 +17,35 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
-
     const toastId = toast.loading("Logging in...");
 
     try {
+      await login(email, password);
 
-     await login(email, password);
-
-      const res = await api.get("/pet/me");
+      let hasPet = true;
+      try {
+        const res = await api.get("/pet");
+        hasPet = !!res.data;
+      } catch {
+        hasPet = false;
+      }
 
       toast.success("Login successful", { id: toastId });
-
-      setTimeout(() => {
-
-        if (!res.data) {
-          navigate("/pet");
-        } else {
-          navigate("/");
-        }
-
-      }, 800);
+      navigate(hasPet ? "/" : "/pet");
 
     } catch (err) {
-
-      toast.error(
-        err.response?.data?.message || "Login failed",
-        { id: toastId }
-      );
-
+      toast.error(err.response?.data?.message || "Login failed", { id: toastId });
     }
   };
 
   return (
-
-    <div className="flex items-center flex-wrap justify-center h-screen bg-gray-100">
+    <div className="auth-page">
       <Pet />
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white m-6 p-6 rounded-xl shadow w-80"
-      >
+      <form onSubmit={handleSubmit} className="auth-card">
 
-        <h1 className="text-2xl font-bold mb-4">
-          Login
-        </h1>
+        <h1 className="auth-title">LOGIN</h1>
 
         <Input
           type="email"
@@ -76,19 +61,14 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <p className="p-2">
+        <p className="auth-text">
           Don't have an account yet?{" "}
-          <a href="/register" className="text-primary-500 hover:underline">
-            Register
-          </a>
+          <a href="/register" className="auth-link">Register</a>
         </p>
 
-        <Button type="submit">
-          Login
-        </Button>
+        <Button type="submit">Start Game</Button>
 
       </form>
-
     </div>
   );
 }

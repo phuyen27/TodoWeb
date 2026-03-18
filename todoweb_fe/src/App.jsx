@@ -6,9 +6,8 @@ import { LandingPage } from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
-import Tasks from "./pages/Tasks";
-import PetPage from "./pages/PetPage";
-
+import PetPage from "./features/pet/PetPage";
+import TasksPage from "./features/tasks/TaskPage";
 function App() {
 
   const { token } = useAuth();
@@ -31,7 +30,7 @@ function App() {
 
         <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/tasks" element={<TasksPage />} />
 
         <Route path="/pet" element={<PetPage />} />
       </Routes>

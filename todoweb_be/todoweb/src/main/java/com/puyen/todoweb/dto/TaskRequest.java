@@ -10,7 +10,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class TaskRequest {
-    @NotBlank
     private String title;
 
     private String description;
