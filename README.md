@@ -1,21 +1,42 @@
-# TodoWeb
-A full-stack to-do list app with a pet streak system that encourages daily productivity. Built with React.js, Spring Boot, and MongoDB.
-# 🐾 Pet Todo App
+# 🐾 AI-Powered Pet Todo Web App
 
-A full-stack **Todo App with a virtual pet system**.
-Complete your tasks, take care of your pet, and watch it grow with you 🐶✨
+A full-stack **Todo App with an AI-driven virtual pet system**.  
+Stay productive, interact with your smart pet, and let AI guide your daily habits 🧠🐶✨
 
----
+
 
 ## 🚀 Features
 
 * ✅ Task management (create, update, complete)
-* 🐾 Virtual pet that evolves over time
+* 🐾 Virtual pet that evolves based on your behavior
+* 🧠 AI-powered task suggestions based on your habits
+* 💬 AI pet chat (your pet can talk, motivate, and remind you)
+* 📊 Smart productivity tracking & insights
 * 🌗 Day / Night pet environment
-* 💬 Interactive pet chat
-* 📊 Pet status changes based on your productivity
 
----
+
+
+## 🧠 AI Highlights
+
+* ✨ **Smart Task Recommendation**  
+  Suggests tasks based on your previous activity & patterns
+
+* 💬 **Conversational AI Pet**  
+  Your pet can:
+  - Motivate you when you're inactive  
+  - Celebrate your achievements  
+  - Remind unfinished tasks  
+
+* 📊 **Behavior Analysis**  
+  Tracks:
+  - Task completion consistency  
+  - Active hours  
+  - Productivity trends  
+
+* 🔮 **Future: Predictive Productivity**  
+  Predict your low-focus time and suggest better schedules
+
+
 
 ## 🖼️ Demo
 
@@ -23,35 +44,38 @@ Complete your tasks, take care of your pet, and watch it grow with you 🐶✨
 
 ![Pet](docs/images/pet.png)
 
----
+
 
 ### 📋 Task Management
 
 ![Tasks](docs/images/tasks.png)
 
----
+
 
 ### 📊 Dashboard
 
 ![Dashboard](docs/images/dashbroad.png)
 
----
 
-### 🏠 Pet Room (Day & Night)
 
-**Day**
-![Pet Room Day](docs/images/pet-room-afternoon.png)
+### 🏠 Pet Room (Morning, Afternoon & Night)
+
+**Morning**
+![Pet Room Morning](docs/images/pet-room-morning.png)
+
+**Afternoon**
+![Pet Room Afternoon](docs/images/pet-room-afternoon.png)
 
 **Night**
 ![Pet Room Night](docs/images/pet-room-night.png)
 
----
+
 
 ### 🔐 Authentication
 
 ![Register](docs/images/register.png)
 
----
+
 
 ## 🏗️ Project Structure
 
@@ -64,7 +88,7 @@ project-root/
 └── README.md
 ```
 
----
+
 
 ## 🛠️ Tech Stack
 
@@ -79,7 +103,11 @@ project-root/
 * Spring Boot
 * MongoDB 
 
----
+### AI Layer
+* Google Gemini API integration (AI pet chat via prompt engineering)
+* Dynamic prompt building based on pet state (name, mood, stage, tasks)
+* Context-aware responses (task progress + user behavior)
+* Lightweight behavior tracking using task completion data
 
 ## ⚙️ Setup
 
@@ -105,7 +133,7 @@ npm install
 npm start
 ```
 
----
+
 
 ## 💡 Idea
 
@@ -115,7 +143,7 @@ This project turns boring task management into a **fun and emotional experience*
 * Rewarding productivity with pet growth 🌱
 * Creating attachment & motivation ❤️
 
----
+
 
 ## 📌 Future Improvements
 
@@ -123,8 +151,8 @@ This project turns boring task management into a **fun and emotional experience*
 * 🛒 Pet customization (skins, accessories)
 * ☁️ Deploy online (Vercel + Render)
 
----
+
 
 ## 👤 Author
 
-Made with 💙 by you
+Made with 💙 by phuyen27
